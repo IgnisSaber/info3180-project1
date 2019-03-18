@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+<div class="whole">
+    <div class="top">
+        <img src="{{ url_for('static', filename="uploads/" + filename) }}"/>
+        <div class="intro">
+            <div id="name">{{userprofile.firstname}} {{userprofile.lastname}}</div>
+            <div id="email">{{userprofile.email}}</div>
+            <div id="location">{{userprofile.location}}</div>
+         <div id="date">{{ date }}</div>
+        </div>
+    
+    </div>
+    
+    <div class="bottom">
+        <h3>About Me</h3>
+        <p>{{userprofile.biography }}</p>         
+    </div>
+        <div class="c_button"><button type="button">Send Message</button></div>
+        <div class="c_button"><button type="button">Follow</button></div>
+        
+    </div>
+</div>
+
+{% endblock %}

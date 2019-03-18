@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<h2>Add Profile</h2>
+<form method="post" action="{{ url_for('profiles') }}">
+    {% include 'flash_messages.html' %}
+    {{ form.csrf_token }}
+    
+
+    <div class="form-group">
+        {{ form.firstname.label }} {{ form.firstname(class="form-control") }}
+    </div>
+
+    <div class="form-group">
+        {{ form.lastname.label }} {{ form.lastname(class="form-control") }}
+    </div>
+
+    <div class="form-group">
+        {{ form.gender.label }} {{ form.gender(class="form-control") }}
+    </div>
+
+    <div class="form-group">
+        {{ form.email.label }} {{ form.email(class="form-control", placeholder="jdoe@example.com") }}
+    </div>
+
+    <div class="form-group">
+        {{ form.location.label }} {{ form.location(class="form-control", placeholder="Kingston, Jamaica") }}
+    </div>
+
+    <div class="form-group">
+        {{ form.biography.label }} {{ form.location(class="form-control", placeholder="Something about yourself") }}
+    </div>
+
+    <div class="form-group">
+        {{ form.picture.label }}
+        {{ form.picture(class="form-control") }}
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add Profile</button>
+
+
+</form>
+
+<header class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1>Add Profile</h1>
+    </div>
+</header>
+{% endblock %}

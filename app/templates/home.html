@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <h2>Home</h2>
+    <p>Options below:</p>
+    <ul>
+        <li><a href="{{ url_for('profile') }}">Add Your Profile</a></li>
+        <li><a href="{{ url_for('profiles') }}">View Profiles</a></li>
+    </ul>
+{% endblock %}
