@@ -17,6 +17,7 @@ import datetime
 # in forms.py
 from .forms import MyForm
 
+var=app.config['UPLOAD_FOLDER']
 
 ###
 # Routing for your application.
@@ -46,9 +47,8 @@ def profile():
         profile_picture = form.profile_picture.data 
         
         filename = secure_filename(profile_picture.filename)
-        profile_picture.save(os.path.join(
-            app.config['UPLOAD_FOLDER'], filename
-        ))
+        profile_picture.save(os.path.join(var, filename))
+        
         user=UserProfile(request.form['firstname'],request.form['lastname'],request.form['gender'],request.form['email'],request.form['location'],request.form['biography'],request.form['profile_picture'])
         db.session.add(user)
         db.session.commit(user)
