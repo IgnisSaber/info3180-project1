@@ -2,7 +2,7 @@
 
 {% block main %}
 <h2>Add Profile</h2>
-<form method="post" action="{{ url_for('profiles') }}">
+<form method="post" action="{{ url_for('profiles') }}" enctype="multipart/form-data" >
     {% include 'flash_messages.html' %}
     {{ form.csrf_token }}
     
@@ -32,8 +32,8 @@
     </div>
 
     <div class="form-group">
-        {{ form.picture.label }}
-        {{ form.picture(class="form-control") }}
+        {{ form.profile_picture.label }}
+        {{ form.profile_picture(class="form-control") }}
     </div>
 
     <button type="submit" class="btn btn-primary">Add Profile</button>
@@ -41,9 +41,5 @@
 
 </form>
 
-<header class="jumbotron jumbotron-fluid">
-    <div class="container">
-        <h1>Add Profile</h1>
-    </div>
-</header>
+
 {% endblock %}

@@ -11,7 +11,7 @@ class MyForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     location = StringField('Location', validators=[DataRequired()])
     biography = TextAreaField("Biography")
-    picture = FileField('Profile Picture', validators=[
+    profile_picture = FileField('Profile Picture', validators=[
         FileRequired(),
         FileAllowed(['jpg', 'png', 'Images only!'])
     ])

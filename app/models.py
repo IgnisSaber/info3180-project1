@@ -17,7 +17,7 @@ class UserProfile(db.Model):
     location = db.Column(db.String(80))
     biography = db.Column(db.String(80))
     created_on = db.Column(db.String(80))
-    #profile_picture =db.Column()
+    profile_picture =db.Column(db.LargeBinary)
     
 
 
@@ -29,7 +29,7 @@ class UserProfile(db.Model):
         joindate= "Joined "  + now.strftime("%B, %Y") 
         return joindate
     
-    def __init__(self, firstname, lastname, gender, email, location,biography,created_on=format_date_joined(),profile_picture):
+    def __init__(self, firstname, lastname, gender, email, location,biography,created_on,profile_picture):
 
         self.firstname = firstname
 
@@ -45,7 +45,7 @@ class UserProfile(db.Model):
 
         self.created_on = created_on
 
-        #self.profile_picture = profile_picture
+        self.profile_picture = profile_picture
 
 
         #self.password = generate_password_hash(password, method='pbkdf2:sha256')

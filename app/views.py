@@ -10,10 +10,12 @@ from flask import render_template, request, redirect, url_for, flash, session, a
 from werkzeug.utils import secure_filename
 from app import db 
 from app.models import UserProfile
+import datetime 
+
 
 # Note: that when using Flask-WTF we need to import the Form Class that we created
 # in forms.py
-from .forms import MyForm, PhotoForm
+from .forms import MyForm
 
 
 ###
@@ -25,10 +27,15 @@ def home():
     """Render website's home page."""
     return render_template('home.html')
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
 @app.route('/profile', methods=['GET','POST'])
 def profile():
     """displays form to add new profile"""
     form = MyForm()
+    created_on=format_date_joined()
     if form.validate_on_submit():
         firstname = form.firstname.data
         lastname = form.lastname.data
@@ -36,18 +43,19 @@ def profile():
         email = form.email.data
         location = form.location.data
         biography = form.biography.data
-        picture = form.picture.data 
+        profile_picture = form.profile_picture.data 
         
-        filename = secure_filename(picture.filename)
-        picture.save(os.path.join(
+        filename = secure_filename(profile_picture.filename)
+        profile_picture.save(os.path.join(
             app.config['UPLOAD_FOLDER'], filename
         ))
-        user=UserProfile(request.form['firstname'],request.form['lastname'],request.form['gender'],request.form['email'],request.form['location'],request.form['biography'])
+        user=UserProfile(request.form['firstname'],request.form['lastname'],request.form['gender'],request.form['email'],request.form['location'],request.form['biography'],request.form['profile_picture'])
         db.session.add(user)
         db.session.commit(user)
         flash('You have successfully added your profile', 'success')
-        return redirect('profiles')
+        return redirect(url_for('profiles'))
     return render_template('profile.html', form=form)
+    #return redirect(url_for('profiles'))
 
 @app.route('/profiles')
 def profiles():
@@ -55,11 +63,11 @@ def profiles():
     return render_template('profiles.html', profiles=profiles)
 
 @app.route('/userprofile/<userid>')
-@app.route('/userprofile/<date>')
+@app.route('/userprofile/<created_on>')
 def userprofile(userid):
     userprofile = UserProfile.query.filter_by(userid=userid).first_or_404()
     
-    return render_template('userprofile.html',userprofile=userprofile,date=format_date_joined())  #modify as necessary
+    return render_template('userprofile.html',userprofile=userprofile,created_on=format_date_joined())  #modify as necessary
 
 
 """
